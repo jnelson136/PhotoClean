@@ -1,0 +1,17 @@
+{
+    "PT1.jpeg": {
+        "faces_detected": 7
+    },
+    "PT2.jpeg": {
+        "faces_detected": 4
+    },
+    "PT3.jpeg": {
+        "faces_detected": 7
+    },
+    "PT4.jpeg": {
+        "faces_detected": 2
+    },
+    "PT5.jpeg": {
+        "faces_detected": 3
+    }
+}
