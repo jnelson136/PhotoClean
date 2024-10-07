@@ -13,5 +13,17 @@
     },
     "PT5.jpeg": {
         "is_screenshot": false
+    },
+    "PT6.jpeg": {
+        "is_screenshot": false
+    },
+    "PT7.jpg": {
+        "is_screenshot": true
+    },
+    "PT8.jpg": {
+        "is_screenshot": true
+    },
+    "PT9.jpg": {
+        "is_screenshot": false
     }
 }

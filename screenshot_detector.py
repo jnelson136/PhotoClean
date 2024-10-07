@@ -7,10 +7,11 @@ from PIL.ExifTags import TAGS
 def is_common_aspect_ratio(width, height):
     """Check if Image Aspect Ratio Matches Common Screen Ratios"""
     aspect_ratio = width / height
-    common_ratios = [(16, 9), (4, 3), (21, 9)]
+    print(f"Image Aspect Ratio: {aspect_ratio}")
+    common_ratios = [(16, 9), (4, 3), (21, 9), (20, 9), (19.5, 9)]
 
     for w, h in common_ratios:
-        if abs(aspect_ratio - (w / h)) < 0.01: # Allowing for Slight Deviations
+        if abs(aspect_ratio - (w / h)) < 0.05: # Allowing for Slight Deviations
             return True
     return False
 
@@ -18,16 +19,33 @@ def has_screenshot_metadata(image_path):
     """Check if Image Metadata Contains Signs of a Screenshot"""
     image = Image.open(image_path)
     exif_data = image._getexif()
+
     if exif_data:
-        for tag, value in exif_data.items():
-            tag_name = TAGS.get(tag, tag)
+        camera_metadata = ["Make", "Model", "FNumber", "ExposureTime", "ISOSpeedRatings", "LensModel"]
+
+        for tag_id, value in exif_data.items():
+            tag_name = TAGS.get(tag_id, tag_id)
+            print(f"{tag_name}: {value}")
+
             if "Screenshot" in str(value) or "Screen capture" in str(value):
                 return True
+            
+        missing_metadata = all(TAGS.get(tag_id) not in camera_metadata for tag_id in exif_data)
+        if missing_metadata:
+            return True
+        
+        # Avoid False Positives from Editing Software (like Picasa)
+        if "Software" in exif_data and "Picasa" in exif_data["Software"]:
+            return False
+        
     return False
 
-def is_screenshot(image_path):
+def is_screenshot(image_path, filename):
     image = cv2.imread(image_path)
     height, width, _ = image.shape
+
+    if "screenshot" in filename.lower():
+        return True
 
     # Check if Aspect Ratio Matches Common Screen Aspect Ratios
     if is_common_aspect_ratio(width, height):
@@ -57,7 +75,7 @@ def process_images(input_folder="images", output_folder="output"):
 
             try:
                 # Analyze if the Image is a Screenshot
-                is_ss = is_screenshot(image_path)
+                is_ss = is_screenshot(image_path, filename)
                 screenshot_data[filename] = {"is_screenshot": is_ss}
 
                 print(f"Processed {filename}: is_screenshot = {is_ss}")

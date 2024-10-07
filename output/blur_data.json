@@ -18,5 +18,21 @@
     "PT5.jpeg": {
         "blur_score": 874.3760053478868,
         "is_blurry": false
+    },
+    "PT6.jpeg": {
+        "blur_score": 874.3760053478868,
+        "is_blurry": false
+    },
+    "PT7.jpg": {
+        "blur_score": 40.2339432060819,
+        "is_blurry": true
+    },
+    "PT8.jpg": {
+        "blur_score": 27.315416510896487,
+        "is_blurry": true
+    },
+    "PT9.jpg": {
+        "blur_score": 179.4244396693515,
+        "is_blurry": false
     }
 }
