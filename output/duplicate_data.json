@@ -1,3 +1,10 @@
 {
-    "PT6.jpeg": "PT5.jpeg"
+    "PT6.jpeg": {
+        "identical_duplicate_of": "PT5.jpeg",
+        "distance": 0
+    },
+    "PT8.jpg": {
+        "near_duplicate_of": "PT7.jpg",
+        "hamming_distance": 10
+    }
 }
